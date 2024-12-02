@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://bwbr2itqxf0e"]
+
+[ext_resource type="Texture2D" uid="uid://c7san8qxffdi0" path="res://Assets/SimpleSpace/Vector/simpleSpace_vector.svg" id="1_io4qm"]
+[ext_resource type="PackedScene" uid="uid://1tfilh0bu2gb" path="res://Components/HealthComponent/health_component.tscn" id="2_oiyjj"]
+[ext_resource type="PackedScene" uid="uid://dfphx62csndqr" path="res://Components/HitboxComponent/hitbox_component.tscn" id="3_kqtob"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_l34fb"]
+radius = 24.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_oybqn"]
+radius = 51.0
+
+[node name="Asteroid" type="RigidBody2D"]
+gravity_scale = 0.0
+contact_monitor = true
+max_contacts_reported = 5
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("1_io4qm")
+region_enabled = true
+region_rect = Rect2(0, 192, 48, 48)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(2, 2)
+shape = SubResource("CircleShape2D_l34fb")
+
+[node name="HealthComponent" parent="." instance=ExtResource("2_oiyjj")]
+max_health = 5
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("3_kqtob")]
+health_component = NodePath("../HealthComponent")
+
+[node name="Hitbox" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("CircleShape2D_oybqn")
+debug_color = Color(0.784314, 0.392157, 0.588235, 0.419608)

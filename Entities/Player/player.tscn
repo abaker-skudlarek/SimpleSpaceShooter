@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://booxxdy3ppu78"]
+
+[ext_resource type="PackedScene" uid="uid://b2cmxfveyojsa" path="res://Entities/Bullet/bullet.tscn" id="2_7lcb5"]
+[ext_resource type="Texture2D" uid="uid://c7san8qxffdi0" path="res://Assets/SimpleSpace/Vector/simpleSpace_vector.svg" id="2_dt2uw"]
+[ext_resource type="Script" path="res://Entities/Player/player.gd" id="2_my0fb"]
+
+[node name="Player" type="RigidBody2D"]
+gravity_scale = 0.0
+script = ExtResource("2_my0fb")
+bullet_scene = ExtResource("2_7lcb5")
+
+[node name="ThrustSprite" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0.686275)
+position = Vector2(0, 45)
+texture = ExtResource("2_dt2uw")
+region_enabled = true
+region_rect = Rect2(456, 312, 32, 58)
+
+[node name="ShipSprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_dt2uw")
+region_enabled = true
+region_rect = Rect2(384, 0, 48, 48)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(0, -23, 23, 16, 16, 23, 8, 15, -8, 15, -16, 23, -23, 16, 0, -23)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="BulletSpawnPoint" type="Marker2D" parent="."]
+position = Vector2(0, -24)
