@@ -25,8 +25,6 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	if Input.is_action_pressed("accelerate"):
 		state.apply_force(forward_thrust.rotated(rotation))
 		animate_thrust()
-	elif Input.is_action_pressed("decelerate"):
-		state.apply_force(backward_thrust.rotated(rotation))
 	else:
 		$ThrustSprite.visible = false
 		state.apply_force(Vector2())
@@ -39,7 +37,7 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 		rotation_direction -= 1
 	state.apply_torque(rotation_direction * torque)
 
-	# TODO: This works, but is it the best way to do it? Idk
+	# TODO: This works, but is it the best way to do it? Idk. Applies brakes by increasing linear damp
 	if Input.is_action_pressed("brakes"):
 		linear_damp = 0.7
 		if abs(linear_velocity) <= Vector2(10, 10):
